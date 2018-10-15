@@ -24,7 +24,7 @@ impl Args {
     }
 }
 
-fn main() {
+fn main() -> io::Result<()> {
     let (args, filenames) = parse_args();
     let mut success = true;
 
@@ -32,7 +32,7 @@ fn main() {
         for filename in filenames {
             if filename == "-" {
                 let mut stdin = io::stdin();
-                run_file_simple(&mut stdin);
+                run_file_simple(&mut stdin)?;
             } else {
                 let mut file = match File::open(filename.as_str()) {
                     Ok(f) => f,
@@ -42,7 +42,7 @@ fn main() {
                         continue;
                     }
                 };
-                run_file_simple(&mut file);
+                run_file_simple(&mut file)?;
             }
         }
     } else {
@@ -50,7 +50,7 @@ fn main() {
         for filename in filenames {
             if filename == "-" {
                 let mut stdin = io::stdin();
-                run_file(&mut stdin, &mut line_number, &args);
+                run_file(&mut stdin, &mut line_number, &args)?;
             } else {
                 let mut file = match File::open(filename.as_str()) {
                     Ok(f) => f,
@@ -60,7 +60,7 @@ fn main() {
                         continue;
                     }
                 };
-                run_file(&mut file, &mut line_number, &args);
+                run_file(&mut file, &mut line_number, &args)?;
             }
         }
     }
@@ -68,6 +68,8 @@ fn main() {
     if !success {
         process::exit(1);
     }
+
+    Ok(())
 }
 
 // If there are no options used, just dump the files with no processing.

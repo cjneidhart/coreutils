@@ -1,0 +1,6 @@
+[package]
+name = "yes"
+version = "0.1.0"
+authors = ["Chris Neidhart <22824545+OrangeChris@users.noreply.github.com>"]
+
+[dependencies]
