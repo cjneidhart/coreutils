@@ -1,6 +1,6 @@
 use std::env;
 use std::ffi::OsString;
-use std::io;
+use std::io::{self, Write};
 use std::os::unix::ffi::OsStrExt;
 
 fn main() {
@@ -13,7 +13,7 @@ fn main() {
             out_line.push(a);
             for arg in args {
                 out_line.push(" ");
-                out_lines.push(arg);
+                out_line.push(arg);
             };
         },
         None => {
@@ -21,8 +21,8 @@ fn main() {
         },
     }
     out_line.push("\n");
-    let stdout = io::stdout();
+    let mut stdout = io::stdout();
     loop {
-        stdout.write(out_line.as_bytes());
+        let _ = stdout.write_all(out_line.as_bytes());
     }
 }
