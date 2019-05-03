@@ -1,0 +1,2 @@
+[workspace]
+members = ["cat", "nl", "sort", "yes"]
