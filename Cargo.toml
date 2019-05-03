@@ -1,2 +1,2 @@
 [workspace]
-members = ["cat", "nl", "sort", "yes"]
+members = ["src/*"]
